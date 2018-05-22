@@ -14,17 +14,6 @@ def read_image(image_path):
     image = cv2.imread(image_path)
     return np.asanyarray(image,dtype='uint8')
 
-#def read_csv_file(csv_path):
-#    images = []
-#    labels = []
-#    with open(csv_path,'r') as f:
-#        for line in f.readlines():
-#            image_path,label = line.split(',')
-#            images.append(read_image(image_path))
-#            labels.append(label)
-#    
-#    return np.asanyarray(images,dtype='float32'),np.asanyarray(labels,dtype='float32')
-    
 def write_tfrecord(csv_path,intend):
     writer = tf.python_io.TFRecordWriter(intend + '.tfrecord')
 
@@ -61,26 +50,13 @@ def write_tfrecord_pair(csv_path,intend):
     writer.close()
     return True
 
-#def read_csv_pair_file(csv_path):
-#    images1 = []
-#    images2 = []
-#    labels = []
-#    with open(csv_path,'r') as f:
-#        for line in f.readlines():
-#            image_path1,image_path2,label = line.split(',')
-#            images1.append(read_image(image_path1))
-#            images2.append(read_image(image_path1))
-#            labels.append(label)
-#    
-#    return np.asanyarray(images1,dtype='float32'),np.asanyarray(images1,dtype='float32'),np.asanyarray(labels,dtype='float32')
-
 if __name__=="__main__":
     train_path = 'data/train_set.csv'
     valid_path = 'data/valid_set.csv'
     test_path = 'data/test_set.csv'
     
-#    write_train_tfrecord = write_tfrecord(train_path,'train')
+    write_train_tfrecord = write_tfrecord(train_path,'train')
     
-#    write_valid_tfrecord = write_tfrecord(valid_path,'valid')
+    write_valid_tfrecord = write_tfrecord(valid_path,'valid')
     write_test_tfrecord = write_tfrecord_pair(test_path,'test')
 
