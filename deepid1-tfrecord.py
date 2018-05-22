@@ -1,12 +1,9 @@
 #! /usr/bin/python
-#import pickle
 #import numpy as np
 import tensorflow as tf
-#from vec import load_data
 
-#testX1, testX2, testY, validX, validY, trainX, trainY = load_data()
-#class_num = np.max(trainY) + 1
 class_num = 1282
+
 def weight_variable(shape):
     with tf.name_scope('weights'):
         return tf.Variable(tf.truncated_normal(shape, stddev=0.1))
@@ -56,17 +53,14 @@ def accuracy(y_estimate, y_real):
 
 
 if __name__ == '__main__':
-#    def get_batch(data_x, data_y, start):
-#        end = (start + 1024) % data_x.shape[0]
-#        if start < end:
-#            return data_x[start:end], data_y[start:end], end
-#        return np.vstack([data_x[start:], data_x[:end]]), np.vstack([data_y[start:], data_y[:end]]), end
+
     batch_size = 128
     
     tfrecords_train_filename = "/home/qingchuandong/project/face_deep/DeepID1-master/train.tfrecord"
     tfrecords_valid_filename = "/home/qingchuandong/project/face_deep/DeepID1-master/valid.tfrecord"
     train_filename_queue = tf.train.string_input_producer(['train.tfrecord'], num_epochs=200)
 #    valid_filename_queue = tf.train.string_input_producer(['valid.tfrecord'], num_epochs=None)
+
     reader = tf.TFRecordReader()
     _, serialized_example = reader.read(train_filename_queue)
     features = tf.parse_single_example(serialized_example,
@@ -160,17 +154,4 @@ if __name__ == '__main__':
     sess.close()
     
     
-#        train_writer = tf.train.SummaryWriter(logdir + '/train', sess.graph)
-#        test_writer = tf.train.SummaryWriter(logdir + '/test', sess.graph)
-#        
-#        idx = 0
-#        for i in range(50001):
-#            batch_x, batch_y, idx = get_batch(data_x, data_y, idx)
-#            summary, _ = sess.run([merged, train_step], {h0: batch_x, y_: batch_y})
-#            train_writer.add_summary(summary, i)
-#        
-#            if i % 100 == 0:
-#                summary, accu = sess.run([merged, accuracy], {h0: validX, y_: validY})
-#                test_writer.add_summary(summary, i)
-#            if i % 5000 == 0 and i != 0:
-#                saver.save(sess, 'checkpoint/%05d.ckpt' % i)
+
